@@ -31,27 +31,27 @@ public class CalculatorTest {
 	@Test
 	public void test_calculate_withRealOperations() {
 		Map<String, Operation> operations = new HashMap<>();
-		operations.put("+", new Multiplication());
-		operations.put("*", new Addition());
+		operations.put("+", new Addition());
+		operations.put("*", new Multiplication());
 		Calculator calc = new Calculator(operations);
 
-		assertEquals(10, calc.calculate("2 + 3 * 4"));
+		assertEquals(20, calc.calculate("2 + 3 * 4"));
 	}
 
 	@Test
 	public void test_calculate_withMocks() {
 		Map<String, Operation> operations = new HashMap<>();
-		operations.put("+", new OperationMock(10));
-		operations.put("*", new OperationMock(20));
+		operations.put("+", new OperationStub(10));
+		operations.put("*", new OperationStub(20));
 		Calculator calc = new Calculator(operations);
 
 		assertEquals(20, calc.calculate("10 + 20 * 30"));
 	}
 
-	public class OperationMock implements Operation {
+	public class OperationStub implements Operation {
 		private final int returnValue;
 
-		public OperationMock(int returnValue) {
+		public OperationStub(int returnValue) {
 			this.returnValue = returnValue;
 		}
 
@@ -64,8 +64,8 @@ public class CalculatorTest {
 	@Test
 	public void test_calculate_throwsException() {
 		Map<String, Operation> operations = new HashMap<>();
-		operations.put("+", new OperationMock(10));
-		operations.put("*", new OperationMock(20));
+		operations.put("+", new OperationStub(10));
+		operations.put("*", new OperationStub(20));
 		Calculator calc = new Calculator(operations);
 
 		assertThrows(NumberFormatException.class, () -> calc.calculate("10+20*30"));
