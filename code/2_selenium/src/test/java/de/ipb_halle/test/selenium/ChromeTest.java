@@ -108,6 +108,6 @@ public class ChromeTest {
 	}
 
 	private String readResourceFile(String fileName) throws IOException {
-		return IOUtils.toString(FlakyTest.class.getResourceAsStream(fileName), "UTF-8");
+		return IOUtils.toString(this.getClass().getResourceAsStream(fileName), "UTF-8");
 	}
 }
